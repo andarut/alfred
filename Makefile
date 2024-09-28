@@ -1,5 +1,7 @@
 venv:
-	rm -rf .venv && python3.11 -m venv .venv && .venv/bin/python3 -m pip install -r requirements.txt
+	rm -rf .venv && python3.11 -m venv .venv
+	.venv/bin/python3 -m pip install --upgrade pip setuptools wheel
+	.venv/bin/python3 -m pip install -r requirements.txt
 
 model:
 	.venv/bin/python3.11 model.py
