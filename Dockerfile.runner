@@ -1,0 +1,17 @@
+FROM ubuntu:20.04 as runner
+ARG DEBIAN_FRONTEND=noninteractive
+
+# TODO: remove
+RUN apt-get update && \
+    apt-get install -y wget software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt install -y python3.11-dev libexpat1-dev zlib1g-dev
+
+RUN useradd -ms /bin/bash andrey
+
+RUN chown -R andrey /home
+
+COPY --from=builder /home/voice /home/voice
+
+RUN su -c 'cd /home && file voice && ./voice' andrey
